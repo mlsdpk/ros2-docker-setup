@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  slamvdb_dev_env:
+    build: .
+    environment:
+      - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
+    ports:
+      - "8765:8765"
+    volumes:
+      - ${USER_PROVIDED_DIR}:/mnt/user_dir
+    tty: true
