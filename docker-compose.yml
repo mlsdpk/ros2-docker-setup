@@ -1,12 +1,19 @@
-version: '3.8'
 services:
-  slamvdb_dev_env:
-    build: .
+  dev:
+    build:
+      context: .
+      args:
+        - ROS_DISTRO=${ROS_DISTRO}
     environment:
-      - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
+      RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
+      CYCLONEDDS_URI: "file://${CYCLONEDDS_URI_FILE}"
     ports:
-      - "8765:8765"
+      # - "8765:8765"
+      - "${HOST_IP}:${UDP_PORT_RANGE}:${UDP_PORT_RANGE}/udp"
     volumes:
-      - ${USER_PROVIDED_DIR}:/mnt/user_dir
+      - ${USER_PROVIDED_DIR}:/ros2
+      - ./cyclonedds.xml:/cyclonedds.xml:ro
+    privileged: true
+    stdin_open: true
     tty: true
