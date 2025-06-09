@@ -8,8 +8,9 @@ services:
       RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}
       ROS_DOMAIN_ID: ${ROS_DOMAIN_ID}
       CYCLONEDDS_URI: "file://${CYCLONEDDS_URI_FILE}"
+      FOXGLOVE_PORT: ${FOXGLOVE_PORT}
     ports:
-      # - "8765:8765"
+      - "${FOXGLOVE_PORT}:${FOXGLOVE_PORT}"
       - "${HOST_IP}:${UDP_PORT_RANGE}:${UDP_PORT_RANGE}/udp"
     volumes:
       - ${USER_PROVIDED_DIR}:/ros2

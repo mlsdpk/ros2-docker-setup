@@ -25,6 +25,7 @@ Minimal Docker setup for running ROS 2 on Apple Silicon devices with visualizati
    UDP_PORT_RANGE=7400-7500
    USER_PROVIDED_DIR=/path/to/your/directory
    CYCLONEDDS_URI_FILE=cyclonedds.xml
+   FOXGLOVE_PORT=8765
    ```
 
    Note on multiple machines setup:
@@ -51,3 +52,16 @@ docker exec -it <container-name> /bin/bash
 > ```sh
 > docker ps
 > ```
+
+## Visualization using Foxglove
+
+This setup supports visualization via [Foxglove Studio](https://docs.foxglove.dev/docs) using a WebSocket connection. By default, the WebSocket server runs on TCP port 8765.
+
+You can customize the port by modifying the `FOXGLOVE_PORT` variable in your .env file.
+
+Inside the container, start the [foxglove_bridge](https://docs.foxglove.dev/docs/connecting-to-data/ros-foxglove-bridge) with:
+```bash
+ros2 launch foxglove_bridge foxglove_bridge_launch.xml
+```
+
+You can now open Foxglove Studio and connect to the WebSocket to visualize our ROS2 data. For more information, see [here](https://docs.foxglove.dev/docs/connecting-to-data/frameworks/ros2#rosbridge).
